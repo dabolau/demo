@@ -1,4 +1,5 @@
 # coding=utf-8
+
 #批量裁剪自定义图片
 from PIL import Image
 import random
