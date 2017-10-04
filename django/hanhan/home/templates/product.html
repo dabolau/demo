@@ -1,0 +1,206 @@
+<!--
+版权归作者所有
+作者：李文江、刘毅
+日期：20170930
+版本号：1.0
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+</head>
+
+<body style="background-color:#eee;">
+  <div class="container" style="padding:30px;">
+    <div class="">
+      <h1 class="text-left">产品</h1>
+    </div>
+    <ol class="breadcrumb text-right">
+      <li><a href="{% url 'add' %}">添加</a></li>
+      <li><a href="{% url 'product' %}">首页</a></li>
+      <li><a class="text-right" href="{% url 'logout' %}">注销</a></li>
+    </ol>
+    <form class="" action="{% url 'product' %}" method="get">
+      <div class="input-group">
+        <input type="text" name="text" class="form-control" placeholder="关键字">
+        <span class="input-group-btn">
+              <input type="submit" class="btn btn-default" value="查询">
+            </span>
+      </div>
+    </form>
+  </div>
+
+  <div class="container" style="padding:30px;">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>名称</th>
+            <th>位置</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in product %}
+          <tr>
+            <th scope="row">{{p.id}}</th>
+            <td><a href="/edit?id={{p.id}}">{{p.name}}</a></td>
+            <td>{{p.location}}</td>
+            <td>{{p.state}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% if product.has_previous %}
+        <li><a href="product?text={{text}}&page={{product.previous_page_number}}">上一页</a></li>
+        {% endif %}
+        <li class="disabled"><a href="#">第 {{product.number}} / {{product.paginator.num_pages}} 页</a></li>
+        {% if product.has_next %}
+        <li><a href="product?text={{text}}&page={{product.next_page_number}}">下一页</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+
+
+
+  <div class="container" style="padding:30px;">
+      <div class="row">
+        <div class="col-md-6" style="height:300px;">
+          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+          <div id="main" style="width:100%;height:100%;"></div>
+        </div>
+        <div class="col-md-6" style="height:300px;">
+          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+          <div id="main2" style="width:100%;height:100%;"></div>
+        </div>
+      </div>
+  
+    </div>
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'));
+  
+      // 指定图表的配置项和数据
+      var option = {
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          orient: 'vertical',
+          x: 'left',
+          data: ['总计', '好', '坏']
+        },
+        series: [
+          {
+            name: '查询结果',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: [
+              {value: {{all_count}}, name:'总计'},
+              {value: {{ok_count}}, name: '好'},
+              {value: {{no_count}}, name: '坏' }
+                ]
+            }
+        ]
+    };
+  
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+  
+  
+  
+  
+  
+  
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main2'));
+  
+      // 指定图表的配置项和数据
+      var option = {
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          orient: 'vertical',
+          x: 'left',
+          data: ['总计', '车间', '白居寺', '白居寺车场', '大堰', '大堰车场', '大坪']
+        },
+        series: [
+          {
+            name: '查询结果',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: [
+            {value: {{all_location_count}}, name:'总计'},
+            {value: {{chejian_location_count}}, name: '车间'},
+            {value: {{baijusi_location_count}}, name: '白居寺' },
+            {value: {{baijusichechang_location_count}}, name: '白居寺车场'},
+            {value: {{dayan_location_count}}, name: '大堰' },
+            {value: {{dayanchechang_location_count}}, name: '大堰车场'},
+            {value: {{daping_location_count}}, name: '大坪' }
+                ]
+            }
+        ]
+    };
+  
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    </script>
+
+
+</body>
+
+</html>
