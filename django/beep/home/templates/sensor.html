@@ -29,20 +29,24 @@
             <li><a href="{% url 'sensor' %}">首页</a></li>
             <li><a class="text-right" href="{% url 'logout' %}">注销</a></li>
         </ol>
-    </div>
-
-    <div class="container" style="padding:30px;">
-
         <!--TIPS-->
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-info alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
                     <strong>红色表示警告，默认表示正常。</strong>
                 </div>
             </div>
         </div>
         <!--TIPS-->
+    </div>
+
+    <div class="container" style="padding:30px;">
+
+        
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
