@@ -23,12 +23,22 @@
         <div class="">
             <h1 class="text-left">传感器</h1>
         </div>
+        <!--菜单-->
         <ol class="breadcrumb text-right">
-            <li><a href="{% url 'meter' %}">仪表</a></li>
-            <li><a href="{% url 'option' %}">选项</a></li>
-            <li><a href="{% url 'sensor' %}">首页</a></li>
-            <li><a class="text-right" href="{% url 'logout' %}">注销</a></li>
+            <li>
+                <a href="{% url 'meter' %}">仪表</a>
+            </li>
+            <li>
+                <a href="{% url 'option' %}">选项</a>
+            </li>
+            <li>
+                <a href="{% url 'sensor' %}">首页</a>
+            </li>
+            <li>
+                <a class="text-right" href="{% url 'logout' %}">注销</a>
+            </li>
         </ol>
+        <!--菜单-->
         <!--提示-->
         <div class="row">
             <div class="col-md-12">
@@ -42,18 +52,14 @@
             </div>
         </div>
         <!--提示-->
-    </div>
-
-    <div class="container" style="padding:30px;">
-
-        
+        <!--数据-->
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <!-- <th>名称</th> -->
-                        <!-- <th>位置</th> -->
+                        <th>名称</th>
+                        <th>位置</th>
                         <th>温度</th>
                         <th>湿度</th>
                         <th>时间</th>
@@ -61,38 +67,47 @@
                 </thead>
                 <tbody>
                     {% for s in sensor %} {% if s.value1 >= temperature.value or s.value2 <= humidity.value %}
-                    <tr class="danger">
-                        <th scope="row">{{s.id}}</th>
-                        <!-- <td>{{s.name}}</td> -->
-                        <!-- <td>{{s.location}}</td> -->
-                        <td>{{s.value1}}</td>
-                        <td>{{s.value2}}</td>
-                        <td>{{s.create_time | date:'Y-m-d H:i:s'}}</td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <th scope="row">{{s.id}}</th>
-                        <!-- <td>{{s.name}}</td> -->
-                        <!-- <td>{{s.location}}</td> -->
-                        <td>{{s.value1}}</td>
-                        <td>{{s.value2}}</td>
-                        <td>{{s.create_time | date:'Y-m-d H:i:s'}}</td>
-                    </tr>
-                    {% endif %} {% endfor %}
+                        <tr class="danger">
+                            <th scope="row">{{s.id}}</th>
+                            <td>{{s.name}}</td>
+                            <td>{{s.location}}</td>
+                            <td>{{s.value1}}</td>
+                            <td>{{s.value2}}</td>
+                            <td>{{s.create_time | date:'Y-m-d H:i:s'}}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <th scope="row">{{s.id}}</th>
+                            <td>{{s.name}}</td>
+                            <td>{{s.location}}</td>
+                            <td>{{s.value1}}</td>
+                            <td>{{s.value2}}</td>
+                            <td>{{s.create_time | date:'Y-m-d H:i:s'}}</td>
+                        </tr>
+                        {% endif %} {% endfor %}
                 </tbody>
             </table>
         </div>
+        <!--数据-->
+        <!--分页-->
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 {% if sensor.has_previous %}
-                <li><a href="sensor?page={{sensor.previous_page_number}}">上一页</a></li>
+                <li>
+                    <a href="sensor?page={{sensor.previous_page_number}}">上一页</a>
+                </li>
                 {% endif %}
-                <li class="disabled"><a href="#">第 {{sensor.number}} / {{sensor.paginator.num_pages}} 页</a></li>
+                <li class="disabled">
+                    <a href="#">第 {{sensor.number}} / {{sensor.paginator.num_pages}} 页</a>
+                </li>
                 {% if sensor.has_next %}
-                <li><a href="sensor?page={{sensor.next_page_number}}">下一页</a></li>
+                <li>
+                    <a href="sensor?page={{sensor.next_page_number}}">下一页</a>
+                </li>
                 {% endif %}
             </ul>
         </nav>
+        <!--分页-->
     </div>
 
 </body>

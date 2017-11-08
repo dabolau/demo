@@ -23,36 +23,43 @@
         <div class="">
             <h1 class="text-left">仪表</h1>
         </div>
+        <!--菜单-->
         <ol class="breadcrumb text-right">
-            <li><a href="{% url 'sensor' %}">首页</a></li>
-            <li><a class="text-right" href="{% url 'logout' %}">注销</a></li>
+            <li>
+                <a href="{% url 'sensor' %}">首页</a>
+            </li>
+            <li>
+                <a class="text-right" href="{% url 'logout' %}">注销</a>
+            </li>
         </ol>
-    </div>
-
-    <!--TIPS-->
-    <div class="container" style="padding:30px;">
+        <!--菜单-->
+        <!--提示-->
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-info alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
                     <strong>绿色表示低值，蓝色表示正常，红色表示警告。</strong>
                 </div>
             </div>
         </div>
-    </div>
-    <!--TIPS-->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6" style="height:300px;">
-                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-                <div id="main" style="width:100%;height:100%;"></div>
-            </div>
-            <div class="col-md-6" style="height:300px;">
-                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-                <div id="main2" style="width:100%;height:100%;"></div>
+        <!--提示-->
+        <!--仪表图-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="height:300px;">
+                    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                    <div id="main" style="width:100%;height:100%;"></div>
+                </div>
+                <div class="col-md-6" style="height:300px;">
+                    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                    <div id="main2" style="width:100%;height:100%;"></div>
+                </div>
             </div>
         </div>
+        <!--仪表图-->
     </div>
 
     <script type="text/javascript">
