@@ -96,23 +96,67 @@ def sensor(request):
     # 获取服务器（SESSION）用户信息
     username = request.session.get('username', None)
     if username:
-        # 获取传感器数据库中的所有数据
-        sensor_all = Sensor.objects.all().order_by('-id')
-        # 传感器数据分页
-        paginator = Paginator(sensor_all, 10)  # 每页显示一条数据
-        page = request.GET.get('page')
-        try:
-            sensor = paginator.page(page)
-        except PageNotAnInteger:
-            sensor = paginator.page(1)  # 如果页面不是整数跳到第一页
-        except EmptyPage:
-            sensor = paginator.page(
-                paginator.num_pages)  # 如果页面超出最大范围跳到最后一页
-        # 获取选项数据库中的数据
-        temperature = Option.objects.get(name='temperature')
-        humidity = Option.objects.get(name='humidity')
-        # 服务器（SESSION）用户信息不为空，显示查询页
-        return render(request, 'sensor.html', locals())
+        if request.method == 'GET':
+            text = request.GET.get('text')
+            if text == None:
+                response = HttpResponseRedirect('/sensor?text=')
+                return response
+
+            else:
+                # 获取选项数据库中的数据
+                temperature = Option.objects.get(name='temperature')
+                humidity = Option.objects.get(name='humidity')
+
+                # 查询传感器数据库中的数据
+                sensor_all = Sensor.objects.filter(
+                    location__contains=text).order_by('-id')
+                # 传感器数据分页
+                paginator = Paginator(sensor_all, 10)  # 每页显示一条数据
+                page = request.GET.get('page')
+                try:
+                    sensor = paginator.page(page)
+                except PageNotAnInteger:
+                    sensor = paginator.page(1)  # 如果页面不是整数跳到第一页
+                except EmptyPage:
+                    sensor = paginator.page(
+                        paginator.num_pages)  # 如果页面超出最大范围跳到最后一页
+
+                # 输出图表中总计，车间、白居寺、白居寺车场、大堰、大堰车场、大坪
+                all_location_count = Sensor.objects.filter(
+                    location__contains=text).count()
+                chejian_location_count = Sensor.objects.filter(
+                    location__contains=text, location='车间', value1__lt=temperature.value).count()
+                baijusi_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺', value1__lt=temperature.value).count()
+                baijusichechang_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺车场', value1__lt=temperature.value).count()
+                dayan_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰', value1__lt=temperature.value).count()
+                dayanchechang_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰车场', value1__lt=temperature.value).count()
+                daping_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大坪', value1__lt=temperature.value).count()
+
+                # 输出图表中总计，车间、白居寺、白居寺车场、大堰、大堰车场、大坪
+                all2_location_count = Sensor.objects.filter(
+                    location__contains=text).count()
+                chejian2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='车间', value1__gte=temperature.value).count()
+                baijusi2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺', value1__gte=temperature.value).count()
+                baijusichechang2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺车场', value1__gte=temperature.value).count()
+                dayan2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰', value1__gte=temperature.value).count()
+                dayanchechang2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰车场', value1__gte=temperature.value).count()
+                daping2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大坪', value1__gte=temperature.value).count()
+
+                # 服务器（SESSION）用户信息不为空，显示查询页
+                return render(request, 'sensor.html', locals())
+        else:
+            pass
     else:
         # 服务器（SESSION）用户信息为空，跳转到登录页面
         response = HttpResponseRedirect('/login')

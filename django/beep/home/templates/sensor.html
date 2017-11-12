@@ -19,7 +19,7 @@
 
 <body style="background-color:#eee;">
 
-    <div class="container" style="padding:30px;">
+    <div class="container">
         <div class="">
             <h1 class="text-left">传感器</h1>
         </div>
@@ -39,19 +39,19 @@
             </li>
         </ol>
         <!--菜单-->
-        <!--提示-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-info alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <strong>红色表示警告，默认表示正常。</strong>
-                </div>
+        <!--查询-->
+        <form class="" action="{% url 'sensor' %}" method="get">
+            <div class="input-group">
+                <input type="text" name="text" class="form-control" placeholder="关键字">
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-default" value="查询">
+                </span>
             </div>
-        </div>
-        <!--提示-->
+        </form>
+        <!--查询-->
+    </div>
+
+    <div class="container" style="padding-top:30px;">
         <!--数据-->
         <div class="table-responsive">
             <table class="table table-hover">
@@ -66,14 +66,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for s in sensor %} {% if s.value1 >= temperature.value or s.value2 <= humidity.value %}
-                        <tr class="danger">
-                            <th scope="row">{{s.id}}</th>
-                            <td>{{s.name}}</td>
-                            <td>{{s.location}}</td>
-                            <td>{{s.value1}}</td>
-                            <td>{{s.value2}}</td>
-                            <td>{{s.create_time | date:'Y-m-d H:i:s'}}</td>
+                    {% for s in sensor %} {% if s.value1 >= temperature.value or s.value2 <= humidity.value %} <tr class="danger">
+                        <th scope="row">{{s.id}}</th>
+                        <td>{{s.name}}</td>
+                        <td>{{s.location}}</td>
+                        <td>{{s.value1}}</td>
+                        <td>{{s.value2}}</td>
+                        <td>{{s.create_time | date:'Y-m-d H:i:s'}}</td>
                         </tr>
                         {% else %}
                         <tr>
@@ -94,7 +93,7 @@
             <ul class="pagination">
                 {% if sensor.has_previous %}
                 <li>
-                    <a href="sensor?page={{sensor.previous_page_number}}">上一页</a>
+                    <a href="sensor?text={{text}}&page={{sensor.previous_page_number}}">上一页</a>
                 </li>
                 {% endif %}
                 <li class="disabled">
@@ -102,13 +101,139 @@
                 </li>
                 {% if sensor.has_next %}
                 <li>
-                    <a href="sensor?page={{sensor.next_page_number}}">下一页</a>
+                    <a href="sensor?text={{text}}&page={{sensor.next_page_number}}">下一页</a>
                 </li>
                 {% endif %}
             </ul>
         </nav>
         <!--分页-->
     </div>
+
+
+    <div class="container">
+        <div class="col-md-6" style="height:300px;">
+            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+            <div id="main" style="width: 100%;height:100%;"></div>
+        </div>
+
+        <div class="col-md-6" style="height:300px;">
+            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+            <div id="main2" style="width:100%;height:100%;"></div>
+        </div>
+    </div>
+    
+
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: ['总计', '车间', '白居寺', '白居寺车场', '大堰', '大堰车场', '大坪']
+            },
+            series: [
+                {
+                    name: '正常数据',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data: [
+                        {value: {{all_location_count}}, name:'总计'},
+                        {value: {{chejian_location_count}}, name: '车间'},
+                        {value: {{baijusi_location_count}}, name: '白居寺' },
+                        {value: {{baijusichechang_location_count}}, name: '白居寺车场' },
+                        {value: {{dayan_location_count}}, name: '大堰' },
+                        {value: {{dayanchechang_location_count}}, name: '大堰车场' },
+                        {value: {{daping_location_count}}, name: '大坪' },
+                    ]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main2'));
+
+        // 指定图表的配置项和数据
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: ['总计', '车间', '白居寺', '白居寺车场', '大堰', '大堰车场', '大坪']
+            },
+            series: [
+                {
+                    name: '警告数据',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data: [
+                        {value: {{all2_location_count}}, name:'总计'},
+                        {value: {{chejian2_location_count}}, name: '车间'},
+                        {value: {{baijusi2_location_count}}, name: '白居寺' },
+                        {value: {{baijusichechang2_location_count}}, name: '白居寺车场' },
+                        {value: {{dayan2_location_count}}, name: '大堰' },
+                        {value: {{dayanchechang2_location_count}}, name: '大堰车场' },
+                        {value: {{daping2_location_count}}, name: '大坪' },
+                    ]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
 
 </body>
 
