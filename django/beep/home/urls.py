@@ -17,16 +17,19 @@ from django.conf.urls import url
 from home import views
 
 urlpatterns = [
+    # 用户权限
     url(r'^$', views.home, name='home'),  # 首页
     url(r'^login', views.login, name='login'),  # 登录
     url(r'^logout', views.logout, name='logout'),  # 注销
-
+    # 界面与选项控制
     url(r'^sensor', views.sensor, name='sensor'),  # 传感器页
     url(r'^meter', views.meter, name='meter'),  # 仪表页
     url(r'^option', views.option, name='option'),  # 选项页
-    url(r'^mail', views.mail, name='mail'),  # 发送邮件
-
     url(r'^save', views.save, name='save'),  # 选项数据保存
+    # 传感器和数据库交互信息
     url(r'^add', views.add, name='add'),  # 接收传感器数据到数据库
     url(r'^ajax', views.ajax, name='ajax'),  # 传递传感器数据到前端
+    # 警告信息发送
+    url(r'^mail', views.mail, name='mail'),  # 发送邮件
+    url(r'^wechat', views.wechat, name='wechat'),  # 发送微信
 ]

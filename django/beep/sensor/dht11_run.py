@@ -1,8 +1,8 @@
 ##############################
 # 版权归作者所有
 # 作者：刘毅
-# 日期：20170930
-# 版本号：1.0
+# 日期：20171128
+# 版本号：1.1
 ##############################
 import RPi.GPIO as GPIO
 import dht11
@@ -24,8 +24,8 @@ while True:
         print("Last valid input: " + str(datetime.datetime.now()))
         print("Temperature: %d C" % result.temperature)
         print("Humidity: %d %%" % result.humidity)
-
-        name = 'dht11'
+        
+        name = '通信设备室'
         location = '白居寺'
         value1 = result.temperature
         value2 = result.humidity

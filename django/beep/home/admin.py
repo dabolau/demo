@@ -6,7 +6,7 @@ from home.models import *
 # 用户管理数据库模型
 ##############################
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'mail', 'location', 'level')
+    list_display = ('username','fullname', 'mail', 'location', 'level')
 
 
 ##############################

@@ -13,6 +13,7 @@ from home.models import *
 
 from datetime import *
 
+import itchat
 import time
 
 
@@ -96,23 +97,91 @@ def sensor(request):
     # 获取服务器（SESSION）用户信息
     username = request.session.get('username', None)
     if username:
-        # 获取传感器数据库中的所有数据
-        sensor_all = Sensor.objects.all().order_by('-id')
-        # 传感器数据分页
-        paginator = Paginator(sensor_all, 10)  # 每页显示一条数据
-        page = request.GET.get('page')
-        try:
-            sensor = paginator.page(page)
-        except PageNotAnInteger:
-            sensor = paginator.page(1)  # 如果页面不是整数跳到第一页
-        except EmptyPage:
-            sensor = paginator.page(
-                paginator.num_pages)  # 如果页面超出最大范围跳到最后一页
-        # 获取选项数据库中的数据
-        temperature = Option.objects.get(name='temperature')
-        humidity = Option.objects.get(name='humidity')
-        # 服务器（SESSION）用户信息不为空，显示查询页
-        return render(request, 'sensor.html', locals())
+        if request.method == 'GET':
+            text = request.GET.get('text')
+            if text == None:
+                response = HttpResponseRedirect('/sensor?text=')
+                return response
+
+            else:
+                # 获取选项数据库中的数据
+                temperature = Option.objects.get(name='temperature')
+                humidity = Option.objects.get(name='humidity')
+
+                # 查询传感器数据库中的数据
+                sensor_all = Sensor.objects.filter(
+                    location__contains=text).order_by('-id')
+                # 传感器数据分页
+                paginator = Paginator(sensor_all, 10)  # 每页显示一条数据
+                page = request.GET.get('page')
+                try:
+                    sensor = paginator.page(page)
+                except PageNotAnInteger:
+                    sensor = paginator.page(1)  # 如果页面不是整数跳到第一页
+                except EmptyPage:
+                    sensor = paginator.page(
+                        paginator.num_pages)  # 如果页面超出最大范围跳到最后一页
+
+                # 输出图表中总计，车间、白居寺、白居寺车场、大堰、大堰车场、大坪
+                all_location_count = Sensor.objects.filter(
+                    location__contains=text).count()
+                chejian_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='车间',
+                    value1__lt=temperature.value).count()
+                baijusi_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='白居寺',
+                    value1__lt=temperature.value).count()
+                baijusichechang_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='白居寺车场',
+                    value1__lt=temperature.value).count()
+                dayan_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='大堰',
+                    value1__lt=temperature.value).count()
+                dayanchechang_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='大堰车场',
+                    value1__lt=temperature.value).count()
+                daping_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='大坪',
+                    value1__lt=temperature.value).count()
+
+                # 输出图表中总计，车间、白居寺、白居寺车场、大堰、大堰车场、大坪
+                all2_location_count = Sensor.objects.filter(
+                    location__contains=text).count()
+                chejian2_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='车间',
+                    value1__gte=temperature.value).count()
+                baijusi2_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='白居寺',
+                    value1__gte=temperature.value).count()
+                baijusichechang2_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='白居寺车场',
+                    value1__gte=temperature.value).count()
+                dayan2_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='大堰',
+                    value1__gte=temperature.value).count()
+                dayanchechang2_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='大堰车场',
+                    value1__gte=temperature.value).count()
+                daping2_location_count = Sensor.objects.filter(
+                    location__contains=text,
+                    location='大坪',
+                    value1__gte=temperature.value).count()
+
+                # 服务器（SESSION）用户信息不为空，显示查询页
+                return render(request, 'sensor.html', locals())
+        else:
+            pass
     else:
         # 服务器（SESSION）用户信息为空，跳转到登录页面
         response = HttpResponseRedirect('/login')
@@ -126,6 +195,10 @@ def meter(request):
     # 获取服务器（SESSION）用户信息
     username = request.session.get('username', None)
     if username:
+        # 判断是否为（GET）方式提交
+        if request.method == 'GET':
+            # 获取提交表单中的设备名称
+            name = request.GET['name']
         # 显示仪表页
         return render(request, 'meter.html', locals())
     else:
@@ -165,8 +238,7 @@ def save(request):
         # 根据温度字段保存到数据库
         option = Option.objects.filter(name='temperature').update(
             value=temperature)
-        option = Option.objects.filter(name='humidity').update(
-            value=humidity)
+        option = Option.objects.filter(name='humidity').update(value=humidity)
         # 保存到数据库后，跳转到页面
         response = HttpResponseRedirect('/sensor')
         return response
@@ -188,8 +260,13 @@ def add(request):
         value1 = request.GET['value1']  # 表示温度
         value2 = request.GET['value2']  # 表示湿度
         # 添加到数据库
-        Sensor.objects.create(name=name, location=location, value1=value1, value2=value2,
-                              create_time=datetime.now(), update_time=datetime.now())
+        Sensor.objects.create(
+            name=name,
+            location=location,
+            value1=value1,
+            value2=value2,
+            create_time=datetime.now(),
+            update_time=datetime.now())
 
         ##############################
         # 判断是否发送警告邮件
@@ -205,8 +282,12 @@ def add(request):
             pass
 
         # 格式化为（JSON）数据形式
-        data = {'name': name, 'location': location,
-                'value1': value1, 'value2': value2}
+        data = {
+            'name': name,
+            'location': location,
+            'value1': value1,
+            'value2': value2
+        }
     # 返回（JSON）数据到页面
     return JsonResponse(data)
 
@@ -215,15 +296,29 @@ def add(request):
 # 传递传感器数据给前端
 ##############################
 def ajax(request):
-    # 获取传感器数据库中数据的总数（相当于最后一条数据）
-    data_all_count = Sensor.objects.all().count()
-    # 查询传感器数据库中最后一条数据
-    data = Sensor.objects.get(id__exact=data_all_count)
-    # 格式化为（JSON）数据形式
-    data = {'id': data.id, 'name': data.name, 'location': data.location, 'value1': data.value1,
-            'value2': data.value2, 'value3': data.value3, 'value4': data.value4, 'value5': data.value5, 'create_time': data.create_time, 'update_time': data.update_time}
-    # 返回（JSON）数据到页面
-    return JsonResponse(data)
+    # 判断是否为（GET）方式提交
+    if request.method == 'GET':
+        # 获取提交表单中的设备名称
+        name = request.GET['name']
+        # 获取传感器数据库中某设备名称的数据并按（ID）编号倒序排列
+        data_all_count = Sensor.objects.filter(name__exact=name).order_by('-id')
+        # 获取传感器数据库中某设备名称的最后一条数据
+        data = Sensor.objects.get(id__exact=data_all_count[0].id)
+        # 格式化为（JSON）数据形式
+        data = {
+            'id': data.id,
+            'name': data.name,
+            'location': data.location,
+            'value1': data.value1,
+            'value2': data.value2,
+            'value3': data.value3,
+            'value4': data.value4,
+            'value5': data.value5,
+            'create_time': data.create_time,
+            'update_time': data.update_time
+        }
+        # 返回（JSON）数据到页面
+        return JsonResponse(data)
 
 
 ##############################
@@ -245,10 +340,52 @@ def mail(request):
     user = User.objects.all()
     for u in user:
         # 发送邮件
-        send_mail('【警告】温度（' + data.value1 + '），湿度（' + data.value2 + '）', '【警告】温度（' + data.value1 + '），湿度（' + data.value2 + '），请立即检查。', '【警告】<dabolau@163.com>',
-                  [u.mail], fail_silently=False)
+        send_mail(
+            '【警告】温度（' + data.value1 + '），湿度（' + data.value2 + '）',
+            '【警告】温度（' + data.value1 + '），湿度（' + data.value2 + '），请立即检查。',
+            '【警告】<dabolau@163.com>', [u.mail],
+            fail_silently=False)
     # 格式化为（JSON）数据形式
-    data = {'id': data.id, 'name': data.name, 'location': data.location, 'value1': data.value1,
-            'value2': data.value2, 'value3': data.value3, 'value4': data.value4, 'value5': data.value5, 'create_time': data.create_time, 'update_time': data.update_time}
+    data = {
+        'id': data.id,
+        'name': data.name,
+        'location': data.location,
+        'value1': data.value1,
+        'value2': data.value2,
+        'value3': data.value3,
+        'value4': data.value4,
+        'value5': data.value5,
+        'create_time': data.create_time,
+        'update_time': data.update_time
+    }
+    # 返回（JSON）数据到页面
+    return JsonResponse(data)
+
+
+##############################
+# 发送微信
+##############################
+def wechat(request):
+    # 获取传感器数据库中数据的总数（相当于最后一条数据）
+    data_all_count = Sensor.objects.all().count()
+    # 查询传感器数据库中最后一条数据
+    data = Sensor.objects.get(id__exact=data_all_count)
+    # 获取用户数据库中的所有数据
+    user = User.objects.all()
+
+
+    # 格式化为（JSON）数据形式
+    data = {
+        'id': data.id,
+        'name': data.name,
+        'location': data.location,
+        'value1': data.value1,
+        'value2': data.value2,
+        'value3': data.value3,
+        'value4': data.value4,
+        'value5': data.value5,
+        'create_time': data.create_time,
+        'update_time': data.update_time
+    }
     # 返回（JSON）数据到页面
     return JsonResponse(data)
