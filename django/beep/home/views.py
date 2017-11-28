@@ -374,6 +374,7 @@ def wechat(request):
     user = User.objects.all()
 
 
+
     # 格式化为（JSON）数据形式
     data = {
         'id': data.id,
