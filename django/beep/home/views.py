@@ -126,6 +126,7 @@ def sensor(request):
                 all_location_count = Sensor.objects.filter(
                     location__contains=text).count()
                 chejian_location_count = Sensor.objects.filter(
+<<<<<<< HEAD
                     location__contains=text,
                     location='车间',
                     value1__lt=temperature.value).count()
@@ -149,11 +150,25 @@ def sensor(request):
                     location__contains=text,
                     location='大坪',
                     value1__lt=temperature.value).count()
+=======
+                    location__contains=text, location='车间', value1__lt=temperature.value).count()
+                baijusi_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺', value1__lt=temperature.value).count()
+                baijusichechang_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺车场', value1__lt=temperature.value).count()
+                dayan_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰', value1__lt=temperature.value).count()
+                dayanchechang_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰车场', value1__lt=temperature.value).count()
+                daping_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大坪', value1__lt=temperature.value).count()
+>>>>>>> 1267a720e1150ce380b99c2c4b209f4ccae23dcf
 
                 # 输出图表中总计，车间、白居寺、白居寺车场、大堰、大堰车场、大坪
                 all2_location_count = Sensor.objects.filter(
                     location__contains=text).count()
                 chejian2_location_count = Sensor.objects.filter(
+<<<<<<< HEAD
                     location__contains=text,
                     location='车间',
                     value1__gte=temperature.value).count()
@@ -177,6 +192,19 @@ def sensor(request):
                     location__contains=text,
                     location='大坪',
                     value1__gte=temperature.value).count()
+=======
+                    location__contains=text, location='车间', value1__gte=temperature.value).count()
+                baijusi2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺', value1__gte=temperature.value).count()
+                baijusichechang2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='白居寺车场', value1__gte=temperature.value).count()
+                dayan2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰', value1__gte=temperature.value).count()
+                dayanchechang2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大堰车场', value1__gte=temperature.value).count()
+                daping2_location_count = Sensor.objects.filter(
+                    location__contains=text, location='大坪', value1__gte=temperature.value).count()
+>>>>>>> 1267a720e1150ce380b99c2c4b209f4ccae23dcf
 
                 # 服务器（SESSION）用户信息不为空，显示查询页
                 return render(request, 'sensor.html', locals())
@@ -372,6 +400,7 @@ def wechat(request):
     data = Sensor.objects.get(id__exact=data_all_count)
     # 获取用户数据库中的所有数据
     user = User.objects.all()
+
 
 
     # 格式化为（JSON）数据形式
