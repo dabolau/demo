@@ -1,8 +1,7 @@
 ##############################
-# 版权归作者所有
 # 作者：刘毅
-# 日期：20170930
-# 版本号：1.0
+# 日期：20171217
+# 版本号：1.1
 ##############################
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
