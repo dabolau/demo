@@ -10,10 +10,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from home.models import *
-
 from datetime import *
 
-import itchat
 import time
 
 
@@ -301,7 +299,8 @@ def ajax(request):
         # 获取提交表单中的设备名称
         name = request.GET['name']
         # 获取传感器数据库中某设备名称的数据并按（ID）编号倒序排列
-        data_all_count = Sensor.objects.filter(name__exact=name).order_by('-id')
+        data_all_count = Sensor.objects.filter(
+            name__exact=name).order_by('-id')
         # 获取传感器数据库中某设备名称的最后一条数据
         data = Sensor.objects.get(id__exact=data_all_count[0].id)
         # 格式化为（JSON）数据形式
@@ -341,40 +340,11 @@ def mail(request):
     for u in user:
         # 发送邮件
         send_mail(
-            '【警告】温度（' + data.value1 + '），湿度（' + data.value2 + '）',
-            '【警告】温度（' + data.value1 + '），湿度（' + data.value2 + '），请立即检查。',
-            '【警告】<dabolau@163.com>', [u.mail],
+            '警告信息',
+            '警告信息，时间（' + str(data.create_time) + '），名称（' + data.name + '），温度（' + data.value1 +
+            '），湿度（' + data.value2 + '），请立即检查。',
+            '警告信息<dabolau@163.com>', [u.mail],
             fail_silently=False)
-    # 格式化为（JSON）数据形式
-    data = {
-        'id': data.id,
-        'name': data.name,
-        'location': data.location,
-        'value1': data.value1,
-        'value2': data.value2,
-        'value3': data.value3,
-        'value4': data.value4,
-        'value5': data.value5,
-        'create_time': data.create_time,
-        'update_time': data.update_time
-    }
-    # 返回（JSON）数据到页面
-    return JsonResponse(data)
-
-
-##############################
-# 发送微信
-##############################
-def wechat(request):
-    # 获取传感器数据库中数据的总数（相当于最后一条数据）
-    data_all_count = Sensor.objects.all().count()
-    # 查询传感器数据库中最后一条数据
-    data = Sensor.objects.get(id__exact=data_all_count)
-    # 获取用户数据库中的所有数据
-    user = User.objects.all()
-
-
-
     # 格式化为（JSON）数据形式
     data = {
         'id': data.id,

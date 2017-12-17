@@ -31,5 +31,4 @@ urlpatterns = [
     url(r'^ajax', views.ajax, name='ajax'),  # 传递传感器数据到前端
     # 警告信息发送
     url(r'^mail', views.mail, name='mail'),  # 发送邮件
-    url(r'^wechat', views.wechat, name='wechat'),  # 发送微信
 ]
