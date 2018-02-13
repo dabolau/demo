@@ -12,11 +12,11 @@ import requests
 
 # initialize GPIO
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.cleanup()
 
-# read data using pin 4
-instance = dht11.DHT11(pin=4)
+# read data using pin 7
+instance = dht11.DHT11(pin=7)
 
 while True:
     result = instance.read()

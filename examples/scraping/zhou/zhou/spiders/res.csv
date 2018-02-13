@@ -1,0 +1,31 @@
+title,url
+教程,https://morvanzhou.github.io/
+Linux 简易教学,https://morvanzhou.github.io/tutorials/others/linux-basic/
+Numpy & Pandas 教程系列,https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/
+Threading 多线程教程系列,https://morvanzhou.github.io/tutorials/python-basic/threading/
+Matplotlib 画图教程系列,https://morvanzhou.github.io/tutorials/data-manipulation/plt/
+multiprocessing 多进程教程系列,https://morvanzhou.github.io/tutorials/python-basic/multiprocessing/
+Git 版本管理 教程系列,https://morvanzhou.github.io/tutorials/others/git/
+数据处理教程系列,https://morvanzhou.github.io/tutorials/data-manipulation/
+Tkinter GUI 教程系列,https://morvanzhou.github.io/tutorials/python-basic/tkinter/
+Python基础 教程系列,https://morvanzhou.github.io/tutorials/python-basic/
+机器学习实践,https://morvanzhou.github.io/tutorials/machine-learning/ML-practice/
+Sklearn 通用机器学习 教程系列,https://morvanzhou.github.io/tutorials/machine-learning/sklearn/
+Keras 教程系列,https://morvanzhou.github.io/tutorials/machine-learning/keras/
+网页爬虫教程系列,https://morvanzhou.github.io/tutorials/data-manipulation/scraping/
+Theano 教程系列,https://morvanzhou.github.io/tutorials/machine-learning/theano/
+Pytorch 教程系列,https://morvanzhou.github.io/tutorials/machine-learning/torch/
+"自己的云计算, 多电脑共享你云端文件",https://morvanzhou.github.io/tutorials/others/linux-basic/5-02-share-folder/
+"自己的云计算, 把 Linux 当成你的云计算平台",https://morvanzhou.github.io/tutorials/others/linux-basic/5-01-remote-learning/
+基础教程系列,https://morvanzhou.github.io/tutorials/python-basic/basic/
+怎么样从 Windows 通过 SSH 远程 Linux,https://morvanzhou.github.io/tutorials/others/linux-basic/4-02-ssh-from-windows/
+怎么样从 MacOS 或 Linux 通过 SSH 远程 Linux,https://morvanzhou.github.io/tutorials/others/linux-basic/4-01-ssh-from-linux-or-mac/
+Github 在线代码管理,https://morvanzhou.github.io/tutorials/others/git/5-1-github/
+临时修改 (stash),https://morvanzhou.github.io/tutorials/others/git/4-4-stash/
+其他教学系列,https://morvanzhou.github.io/tutorials/others/
+merge 分支冲突,https://morvanzhou.github.io/tutorials/others/git/4-2-merge-conflict/
+分支 (branch),https://morvanzhou.github.io/tutorials/others/git/4-1-branch/
+怎么样从手机 (Android安卓/IOS苹果) 通过 SSH 远程 Linux,https://morvanzhou.github.io/tutorials/others/linux-basic/4-03-ssh-from-phone/
+从头开始做一个汽车状态分类器2: 搭建模型,https://morvanzhou.github.io/tutorials/machine-learning/ML-practice/build-car-classifier-from-scratch2/
+怎么样用 TeamViewer 和 VNC 从远程控制电脑,https://morvanzhou.github.io/tutorials/others/linux-basic/4-04-teamviewer-vnc/
+Save & reload 保存提取,https://morvanzhou.github.io/tutorials/machine-learning/keras/3-1-save/
