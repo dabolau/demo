@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <title>树莓派小车控制台</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function sb(k) {
+            $.post('/control', { k: k }, function () { })
+        }
+        $(function () {
+            window.document.onkeydown = kd;
+            function kd(env) {
+                console.log('kd test')
+                env = (env) ? env : window.event
+                console.log(env.keyCode)
+                if (env.keyCode == '87') {
+                    sb('w')
+                }
+                if (env.keyCode == '83') {
+                    sb('s')
+                }
+                if (env.keyCode == '65') {
+                    sb('a')
+                }
+                if (env.keyCode == '68') {
+                    sb('d')
+                }
+            }
+            var i = null
+            $('.go').mousedown(function () {
+                i = setInterval(function () {
+                    sb('w')
+                }, 100)
+            })
+            $('.left').mousedown(function () {
+                i = setInterval(function () {
+                    sb('a')
+                }, 100)
+            })
+            $('.right').mousedown(function () {
+                i = setInterval(function () {
+                    sb('d')
+                }, 100)
+            })
+            $('.back').mousedown(function () {
+                i = setInterval(function () {
+                    sb('s')
+                }, 100)
+            })
+            $('#main span').mouseup(function () {
+                clearInterval(i)
+            })
+        })
+    </script>
+
+    <style type="text/css">
+        #main {
+            width: 150px;
+            height: 150px;
+            background: #ffffff;
+        }
+
+        #main span {
+            width: 50px;
+            height: 50px;
+            background: #cccccc;
+            float: left;
+            line-height: 50px;
+            text-align: center;
+            z-index: 999;
+        }
+
+        #main span.btn {
+            width: 50px;
+            height: 50px;
+            background: #b9b9b9;
+            float: left;
+            line-height: 50px;
+            text-align: center;
+            z-index: 999;
+        }
+    </style>
+
+    树莓派小车控制
+    <!-- 提交数据 -->
+    <form action="/control" method="post">
+        <input type="submit" name="key" value="go">
+        <input type="submit" name="key" value="left">
+        <input type="submit" name="key" value="right">
+        <input type="submit" name="key" value="back">
+    </form>
+    <!-- 控制样式 -->
+    <div id="main">
+        <span></span>
+        <span class="btn go">前</span>
+        <span></span>
+
+        <span class="btn left">左</span>
+        <span></span>
+        <span class="btn right">右</span>
+
+        <span></span>
+        <span class="btn back">后</span>
+        <span></span>
+    </div>
+</body>
+
+</html>
