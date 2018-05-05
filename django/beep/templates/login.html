@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href={% static "/bootstrap/css/bootstrap.min.css" %}>
+    <script src={% static "/bootstrap/js/jquery.min.js" %}></script>
+    <script src={% static "/bootstrap/js/bootstrap.min.js" %}></script>
+    <script src={% static "/bootstrap/js/echarts.min.js" %}></script>
+</head>
+
+<body style="background-color:#eee;">
+    <div class="container" style="max-width:330px;padding:30px;">
+        <h1 class="text-center">登录</h1>
+        <!--登录-->
+        <form class="" action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="用户">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-default form-control" name="" value="登录">
+            </div>
+        </form>
+        <!--登录-->
+        <!--提示-->
+        {% if error %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <strong>{{error}}</strong>
+        </div>
+        {% endif %}
+        <!--提示-->
+    </div>
+</body>
+
+</html>

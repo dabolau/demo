@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>糯米圈二维码生成器</title>
+    <meta name="description" content="简单、便捷、功能强大的免费二维码生成工具。">
+    <meta name="keywords" content="二维码生成器,二维码生成软件,二维码生成工具">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="{% url 'home' %}download/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .container {
+            max-width: 730px;
+        }
+
+        .row {
+            padding-top: 19px;
+            padding-bottom: 19px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        .banner {
+            padding-top: 50px;
+            background: #ff5e52;
+        }
+
+        .btn {
+            background: #ff5e52;
+            border: #ff5e52;
+            color: #FFF;
+
+        }
+
+        .footer {
+            color: #777;
+            border-top: 1px solid #e5e5e5;
+        }
+    </style>
+</head>
+
+<body>
+    <!--STATIC NAVBAR-->
+    <nav class="navbar navbar-default navbar-fixed-top" style="background:#FFF" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                    <span class="sr-only">#</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">糯米圈</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="">首页
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">登录 | 注册</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="" target="_blank">登录</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="" target="_blank">注册</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--STATIC NAVBAR-->
+    <!--CONTAINER-->
+    <div class="banner">
+        <div class="container">
+            <div class="row text-center">
+                {% if p %}
+                <img src="{% url 'home' %}{{ p }}" alt="糯米圈二维码生成器" width="150px" height="150px" class="img-rounded text-center"> {% else %}
+                <img src="{% url 'home' %}download/nmq.svg" alt="糯米圈二维码生成器" width="150px" height="150px" class="img-rounded text-center"> {% endif %}
+            </div>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--CONTAINER-->
+    <div class="container">
+        <div class="row">
+            {% if error != '' %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>提示：</strong> {{ error }}
+            </div>
+            {% endif %}
+            <form action="{% url 'home' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="text" class="form-control" placeholder="支持文本、网址和电子邮件" cols="30" rows="8"></textarea>
+                </div>
+                <input type="submit" class="btn btn-warning form-control" value="生成二维码">
+            </form>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--FOOTER-->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <p>糯米圈 &copy; 2018</p>
+            </div>
+        </div>
+    </footer>
+    <!--FOOTER-->
+    <!--CODE-->
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2b47acbbb6218c62142c1c6aa198b744";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <!--CODE-->
+</body>
+
+</html>

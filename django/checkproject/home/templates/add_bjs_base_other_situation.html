@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>add</title>
+</head>
+
+<body>
+    <form action="{% url 'add_bjs_base_other_situation' %}" method="POST">
+        {% csrf_token %} {{ BBOSMF.as_p }}
+        <input type="submit" value="确定">
+    </form>
+</body>
+
+</html>

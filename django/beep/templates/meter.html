@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表</title>
+    <link rel="stylesheet" href={% static "/bootstrap/css/bootstrap.min.css" %}>
+    <script src={% static "/bootstrap/js/jquery.min.js" %}></script>
+    <script src={% static "/bootstrap/js/bootstrap.min.js" %}></script>
+    <script src={% static "/bootstrap/js/echarts.min.js" %}></script>
+</head>
+
+<body style="background-color:#eee;">
+
+    <div class="container">
+        <div class="">
+            <h1 class="text-left">{{name}}</h1>
+        </div>
+        <!--菜单-->
+        <ol class="breadcrumb text-right">
+            <li>
+                <a href="{% url 'sensor' %}">首页</a>
+            </li>
+            <li>
+                <a class="text-right" href="{% url 'logout' %}">注销</a>
+            </li>
+        </ol>
+        <!--菜单-->
+    </div>
+
+    <!--仪表图-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" style="height:300px;">
+                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                <div id="main" style="width:100%;height:100%;"></div>
+            </div>
+            <div class="col-md-6" style="height:300px;">
+                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                <div id="main2" style="width:100%;height:100%;"></div>
+            </div>
+        </div>
+    </div>
+    <!--仪表图-->
+
+
+    <script type="text/javascript">
+        var wd //定义温度的全局变量
+        var sd //定义湿度的全局变量
+
+        // 获取温湿度值
+        var echarts_json = function () {
+            $.getJSON("/ajax?name={{name}}", function (deep_data) {
+                wd = deep_data.temperature //获取温度参数
+                sd = deep_data.humidity //获取湿度参数
+            });
+        };
+
+        // 每10秒刷新一次温湿度值
+        setInterval(echarts_json, 3000);
+
+        //////////////////////////////
+        // 图表一
+        //////////////////////////////
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            tooltip: {
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: { show: true },
+                    //restore: { show: true },
+                    //saveAsImage : { show: true }
+                }
+            },
+            series: [
+                {
+                    name: '指标',
+                    type: 'gauge',
+                    splitNumber: 10,       // 分割段数，默认为5
+                    axisLine: {            // 坐标轴线
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            color: [[0.2, '#91C7AE'], [0.5, '#63869E'], [1, '#C23531']],
+                            width: 8
+                        }
+                    },
+                    axisTick: {            // 坐标轴小标记
+                        splitNumber: 10,   // 每份split细分多少段
+                        length: 12,        // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    axisLabel: {           // 坐标轴文本标签，详见axis.axisLabel
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                            color: 'auto'
+                        }
+                    },
+                    splitLine: {           // 分隔线
+                        show: true,        // 默认显示，属性show控制显示与否
+                        length: 15,         // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    pointer: {
+                        width: 5
+                    },
+                    title: {
+                        show: true,
+                        offsetCenter: [0, '-40%'],       // x, y，单位px
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                            fontWeight: 'bolder'
+                        }
+                    },
+                    detail: {
+                        formatter: '{value}℃',
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                            color: 'auto',
+                            fontWeight: 'bolder'
+                        }
+                    },
+                    data: [{ value: 50, name: '温度' }]
+                }
+            ]
+        };
+
+        // 定义温度函数，并赋值给图表
+        var echarts_data = function () {
+            option.series[0].data[0].value = wd;
+            myChart.setOption(option, true);
+        };
+
+        // 每1秒刷新一次图表数据
+        setInterval(echarts_data, 1000);
+
+
+
+        //////////////////////////////
+        // 图表二
+        //////////////////////////////
+        // 基于准备好的dom，初始化echarts实例
+        var myChart2 = echarts.init(document.getElementById('main2'));
+
+        // 指定图表的配置项和数据
+        var option2 = {
+            tooltip: {
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: { show: true },
+                    //restore: { show: true }
+                    //saveAsImage : {show: true}
+                }
+            },
+            series: [
+                {
+                    name: '指标',
+                    type: 'gauge',
+                    splitNumber: 10,       // 分割段数，默认为5
+                    axisLine: {            // 坐标轴线
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            color: [[0.2, '#91C7AE'], [0.8, '#63869E'], [1, '#C23531']],
+                            width: 8
+                        }
+                    },
+                    axisTick: {            // 坐标轴小标记
+                        splitNumber: 10,   // 每份split细分多少段
+                        length: 12,        // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    axisLabel: {           // 坐标轴文本标签，详见axis.axisLabel
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                            color: 'auto'
+                        }
+                    },
+                    splitLine: {           // 分隔线
+                        show: true,        // 默认显示，属性show控制显示与否
+                        length: 15,         // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    pointer: {
+                        width: 5
+                    },
+                    title: {
+                        show: true,
+                        offsetCenter: [0, '-40%'],       // x, y，单位px
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                            fontWeight: 'bolder'
+                        }
+                    },
+                    detail: {
+                        formatter: '{value}%',
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                            color: 'auto',
+                            fontWeight: 'bolder'
+                        }
+                    },
+                    data: [{ value: 50, name: '湿度' }]
+                }
+            ]
+        };
+
+        // 定义湿度函数，并赋值给图表
+        var echarts_data2 = function () {
+            option2.series[0].data[0].value = sd;
+            myChart2.setOption(option2, true);
+        };
+
+        // 每1秒刷新一次图表数据
+        setInterval(echarts_data2, 1000);
+    </script>
+
+</body>
+
+</html>
