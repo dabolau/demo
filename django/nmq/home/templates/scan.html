@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 
 <head>
-    <title>糯米圈二维码生成器</title>
-    <meta name="description" content="简单、便捷、功能强大的免费二维码生成工具。">
-    <meta name="keywords" content="二维码生成器,二维码生成软件,二维码生成工具">
+    <title>糯米圈二维码扫描器</title>
+    <meta name="description" content="简单、便捷、功能强大的免费二维码扫描工具。">
+    <meta name="keywords" content="二维码扫描器,二维码扫描软件,二维码扫描工具">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -90,8 +90,8 @@
         <div class="container">
             <div class="row text-center">
                 {% if p %}
-                <img src="{% url 'home' %}{{ p }}" alt="糯米圈二维码生成器" width="150px" height="150px" class="img-rounded text-center"> {% else %}
-                <img src="{% url 'home' %}download/nmq.svg" alt="糯米圈二维码生成器" width="150px" height="150px" class="img-rounded text-center"> {% endif %}
+                <img src="{% url 'home' %}{{ p }}" alt="糯米圈二维码扫描器" width="150px" height="150px" class="img-rounded text-center"> {% else %}
+                <img src="{% url 'home' %}download/nmq.svg" alt="糯米圈二维码扫描器" width="150px" height="150px" class="img-rounded text-center"> {% endif %}
             </div>
         </div>
     </div>
@@ -104,15 +104,15 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <strong>错误提示：</strong> {{ message }}
+                <strong>扫描结果：</strong> {{ message }}
             </div>
             {% endif %}
-            <form action="{% url 'home' %}" method="POST">
+            <form action="{% url 'scan' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    <textarea name="text" class="form-control" placeholder="支持文本、网址和电子邮件" cols="30" rows="8"></textarea>
+                    <input type="file" class="form-control" name="upfile">
                 </div>
-                <input type="submit" class="btn btn-warning form-control" value="生成二维码">
+                <input type="submit" class="btn btn-warning form-control" value="扫描二维码">
             </form>
         </div>
     </div>

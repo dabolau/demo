@@ -125,7 +125,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'  # SMTP地址
 EMAIL_PORT = 25  # SMTP端口
 EMAIL_HOST_USER = 'dabolau@163.com'  # 邮箱帐号
-EMAIL_HOST_PASSWORD = 'yjuemc5201314'  # 邮箱密码
+EMAIL_HOST_PASSWORD = '******'  # 邮箱密码
 EMAIL_SUBJECT_PREFIX = u''  # 为邮件Subject-line前缀,默认是'[django]'
 EMAIL_USE_TLS = False  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
 # 管理员站点
