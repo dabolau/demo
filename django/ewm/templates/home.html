@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>智能云端</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+</head>
+
+<body class="is-preload">
+
+	<!-- Header -->
+	<header id="header">
+		<h1>智能云端</h1>
+		<p>简单高效的智能云端办公系统</p>
+	</header>
+
+	<!-- Select -->
+	<div id="signup-form">
+		<input type="submit" onclick="javascript:window.open('{% url 'main' %}')" value="进入智能云端系统" />
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<ul class="icons">
+			<li><a href="/account/login/" class="icon fa-user-o"><span class="label">GitHub</span></a></li>
+			<li><a href="mailto:dabolau@qq.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+			<li><a href="/static/qrcode/home/home.png" class="icon fa-qrcode"><span class="label">qrcode</span></a></li>
+		</ul>
+		<ul class="copyright">
+			<li>版权所有 &copy; {% now 'Y' %}</li>
+			<li><a href="{% url 'bug' %}">问题反馈</a></li>
+			<li><a href="/static/qrcode/home/home.png">扫描首页</a></li>
+		</ul>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

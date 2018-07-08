@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <title>智能云端</title>
+</head>
+
+<body>
+    <!--STATIC NAVBAR-->
+    {% include 'navbar.html' %}
+    <!--STATIC NAVBAR-->
+    <!--CONTAINER-->
+    <div class="banner">
+        <div class="container">
+            <div class="row text-center">
+                <h1>智能云端</h1>
+            </div>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--CONTAINER-->
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <h2>
+                    <a href="{% url 'group' %}">班组信息</a>
+                </h2>
+                <p>通过扫描二维码可对班组整体架构一目了然，内容包含班组简介、成员组成、设备组成、岗位责任、疏散逃生、应知应会等信息。</p>
+            </div>
+            <div class="col-md-6">
+                <h2>
+                    <a href="{% url 'member' %}">员工信息</a>
+                </h2>
+                <p>通过扫描二维码可获取员工的基本情况，内容包含工作照片、工号、岗位、政治面貌、技能等级、联系电话、员工简介等信息。</p>
+            </div>
+            <div class="col-md-6">
+                <h2>
+                    <a href="{% url 'equipment' %}">设备信息</a>
+                </h2>
+                <p>通过扫描二维码可获取设备的相关信息，内容包含设备照片、设备名称、设备厂家、设备型号、存放位置、设备启用时间等信息。</p>
+            </div>
+            <div class="col-md-6">
+                <h2>
+                    <a href="{% url 'file' %}">附件信息</a>
+                </h2>
+                <p>作为班组、员工及设备信息的基础数据库，提供所需要的素材，内容包含故障处理指南、应急预案、安全隐患、工作说明书等信息。</p>
+            </div>
+
+
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--FOOTER-->
+    {% include 'footer.html' %}
+    <!--FOOTER-->
+    <!--CODE-->
+    <!--CODE-->
+</body>
+
+</html>

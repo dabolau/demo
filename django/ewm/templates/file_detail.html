@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <title>附件详情</title>
+</head>
+
+<body>
+    <!--STATIC NAVBAR-->
+    {% include 'navbar.html' %}
+    <!--STATIC NAVBAR-->
+    <!--CONTAINER-->
+    <div class="banner">
+        <div class="container">
+            <div class="row text-center">
+                <h1>附件详情</h1>
+            </div>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--CONTAINER-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-4">附件信息</th>
+                            <th class="col-xs-8"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>文件名称</td>
+                            <td>{{obj.file_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>文件标签</td>
+                            <td>{{obj.file_tag}}</td>
+                        </tr>
+                        <tr>
+                            <td>文件信息</td>
+                            <td>
+                                <a href="/{{obj.file_upload}}">查看详情</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="col-md-4 text-center">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>扫描二维码</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="/static/qrcode/file/{{id}}.png" alt="" width="180px" height="180px">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--FOOTER-->
+    {% include 'footer.html' %}
+    <!--FOOTER-->
+    <!--CODE-->
+    <!--CODE-->
+</body>
+
+</html>

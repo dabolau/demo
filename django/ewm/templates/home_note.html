@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <title>网站信息</title>
+</head>
+
+<body>
+    <!--STATIC NAVBAR-->
+    {% include 'navbar.html' %}
+    <!--STATIC NAVBAR-->
+    <!--CONTAINER-->
+    <div class="banner">
+        <div class="container">
+            <div class="row text-center">
+                <h1>网站信息</h1>
+            </div>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--CONTAINER-->
+    <div class="container">
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{{obj.web_name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{obj.web_content}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--FOOTER-->
+    {% include 'footer.html' %}
+    <!--FOOTER-->
+    <!--CODE-->
+    <!--CODE-->
+</body>
+
+</html>

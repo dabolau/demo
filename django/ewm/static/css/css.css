@@ -1,0 +1,57 @@
+.navbar {
+    background: #fff;
+}
+
+.container {
+    max-width: 60em;
+}
+
+.row {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.banner {
+    padding-top: 3.5em;
+    background: #eee;
+}
+
+.btn {
+    max-width: 8em;
+    min-width: 8em;
+}
+
+.search {
+    padding-bottom: 2em;
+}
+
+.footer {
+    color: #777;
+    border-top: 0.1em solid #e5e5e5;
+}
+
+.face_bg {
+    background-color: #eee;
+}
+
+.face {
+    width: 8em;
+    height: 8em;
+}
+
+.photo_bg {
+    width: 100%;
+    max-height: 50em;
+}
+
+.col-md-4,.col-md-6,.col-md-8 {
+    padding-right: 0em;
+    padding-left: 0em;
+}
+
+.col-xs-12 {
+    padding-right: 0em;
+    padding-left: 0em;    
+}

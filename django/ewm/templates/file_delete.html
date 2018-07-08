@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <title>附件删除</title>
+</head>
+
+<body>
+    <!--STATIC NAVBAR-->
+    {% include 'navbar.html' %}
+    <!--STATIC NAVBAR-->
+    <!--CONTAINER-->
+    <div class="banner">
+        <div class="container">
+            <div class="row text-center">
+                <h1>附件删除</h1>
+            </div>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--CONTAINER-->
+    <div class="container">
+        <div class="row">
+
+            <form action="{% url 'file_delete' %}?id={{ obj.id }}" method="POST">
+                {% csrf_token %}
+                <h1 class="text-center">您确定要删除此附件信息吗？</h1>
+                <p class="text-center">删除后无法恢复，如要继续删除此附件信息，请点击下方删除按钮。</p>
+                <p class="text-center">
+                    <input class="btn btn-danger form-control" type="submit" value="删除">
+                </p>
+            </form>
+
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--FOOTER-->
+    {% include 'footer.html' %}
+    <!--FOOTER-->
+    <!--CODE-->
+    <!--CODE-->
+</body>
+
+</html>

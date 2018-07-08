@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <title>问题反馈</title>
+</head>
+
+<body>
+    <!--STATIC NAVBAR-->
+    {% include 'navbar.html' %}
+    <!--STATIC NAVBAR-->
+    <!--CONTAINER-->
+    <div class="banner">
+        <div class="container">
+            <div class="row text-center">
+                <h1>问题反馈</h1>
+            </div>
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--CONTAINER-->
+    <div class="container">
+        <div class="row">
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>问题反馈</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            为了更快的解决你在使用中遇到的问题，请在发生问题时或者再次遇到问题时，立即提交反馈给我们。
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            问题反馈邮件： <a href="mailto:dabolau@qq.com">dabolau@qq.com</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            问题反馈电话： 13548332689</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>参与人员名单</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            组长：施正强
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            副组长：谭毅，田亮
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            成员：黄轶，夏思恩，许勇，朱涛，钱亮，雷云霞，易新林，杜洪伟，熊莹，王磊，李文江，刘毅
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>开发人员名单</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            框架设计与测试：钱亮
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            数据库设计与测试：李文江
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            框架设计与测试、数据库设计与测试、服务器部署与测试、开发与维护：刘毅
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <!--CONTAINER-->
+    <!--FOOTER-->
+    {% include 'footer.html' %}
+    <!--FOOTER-->
+    <!--CODE-->
+    <!--CODE-->
+</body>
+
+</html>
